@@ -20,12 +20,8 @@ Este es un programa en Python que requiere ciertas dependencias para su correcto
 Este programa requiere las siguientes dependencias:
 
 * feedparser
-* os
 * openai
-* random
 * requests
-* re
-* locale
 * datetime
 * asyncio
 * beautifulsoup4
@@ -49,7 +45,7 @@ Instale las dependencias necesarias utilizando el siguiente comando:
 
 
 ```
-pip install feedparser os openai random requests re locale datetime asyncio beautifulsoup4 dominate Pillow pyppeteer
+pip install feedparser openai requests datetime asyncio beautifulsoup4 dominate Pillow pyppeteer
 ```
 
 Una vez que se completen todas las instalaciones, puede ejecutar el programa.
