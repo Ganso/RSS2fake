@@ -257,7 +257,7 @@ async def capturar(abreviatura_servicio,archivo):
 
 # Genera las noticias (abreviatura, número de noticias a generar, número de noticias a seleccionar de las fuentes RSS, número de caracteres a coger de cada noticia)
 
-#generar_noticia("mundomundial", 1, 20, 200)
-generar_noticia("vidaextrana", 1, 20, 200)
-generar_noticia("lamonclia", 1, 20, 200)
-generar_noticia("sinconciencia", 1, 20, 200)
+generar_noticia("mundomundial", 1, 20, 200)
+#generar_noticia("vidaextrana", 1, 20, 200)
+#generar_noticia("lamonclia", 1, 20, 200)
+#generar_noticia("sinconciencia", 1, 20, 200)
