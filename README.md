@@ -1,9 +1,9 @@
 # RSS2fake
 Generación de noticias falsas con GPT utilizando feed RSS de medios reales
 
-Para utilizarlo, crear un fichero "../clave_API.txt" con la clave de acceso a la API de OpenAI, o bien ponerla en el código en la variable openai.api_key_path
+Para utilizarlo, crear un fichero `../clave_API.txt` con la clave de acceso a la API de OpenAI, o bien editar el código para colocarla en la variable openai.api_key_path de cualquier otra manera (escribiéndola en los fuentes, tomándola de una variable de entorno, etc.)
 
-Las úLtimas líneas del código generan las noticias falsas. Por ejemplo:
+Las últimas líneas del código generan las noticias falsas. Por ejemplo:
 
 ```
 generar_noticia("mundomundial", 1, 20, 200)
