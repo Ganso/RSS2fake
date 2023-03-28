@@ -52,6 +52,8 @@ Una vez que se completen todas las instalaciones, puede ejecutar el programa.
 
 Para utilizar este programa, simplemente ejecute el archivo .py que contiene el código. Por ejemplo:
 
+```
 python mi_programa.py
+```
 
 Se espera que este programa funcione correctamente después de instalar las dependencias requeridas y seguir las instrucciones proporcionadas anteriormente. Si encuentra algún problema, asegúrese de verificar que todas las dependencias estén instaladas correctamente y que esté utilizando la versión correcta de Python.
