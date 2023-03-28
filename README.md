@@ -3,9 +3,15 @@ Generación de noticias falsas con GPT utilizando feed RSS de medios reales
 
 Para utilizarlo, crear un fichero "../clave_API.txt" con la clave de acceso a la API de OpenAI, o bien ponerla en el código en la variable openai.api_key_path
 
-Las útlimas líneas del código generan las noticias falsas. Mirar los comentarios para más detalles.
+Las úLtimas líneas del código generan las noticias falsas. Por ejemplo:
 
-# Instruccinoes
+```
+generar_noticia("mundomundial", 1, 20, 200)
+```
+
+Genera una noticia para el portal "El Mundo Mundial", pasándole a GPT veinte titulares elegidos al azar desde las fuentes RSS, con 200 caracteres de máximo por cada uno de ellos.
+
+# Instrucciones
 
 Este es un programa en Python que requiere ciertas dependencias para su correcto funcionamiento. A continuación, se detallan las instrucciones necesarias para instalar las dependencias requeridas utilizando pip.
 
@@ -50,7 +56,7 @@ Una vez que se completen todas las instalaciones, puede ejecutar el programa.
 
 ## Uso
 
-Para utilizar este programa, simplemente ejecute el archivo .py que contiene el código. Por ejemplo:
+Para utilizar este programa, simplemente ejecute el archivo `.py` que contiene el código. Por ejemplo:
 
 ```
 python mi_programa.py
