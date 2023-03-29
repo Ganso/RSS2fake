@@ -22,10 +22,10 @@ Actualmente lo estoy usando para generar varios portales de noticias de broma, q
 
 # Ejemplos
 
-![Ejemplo del portal El Mundo Mundial](Ejemplo_MundoMundial.jpeg)
-![Ejemplo del portal VidaExtraña](Ejemplo_VidaExtrana.jpeg)
-![Ejemplo del portal SinConCiencia](Ejemplo_SinConCiencia.jpeg)
-![Ejemplo del portal La Moncl IA](Ejemplo_MonclIA.jpeg)
+![Ejemplo del portal El Mundo Mundial](Ejemplo_MundoMundial.png)
+![Ejemplo del portal VidaExtraña](Ejemplo_VidaExtrana.png)
+![Ejemplo del portal SinConCiencia](Ejemplo_SinConCiencia.png)
+![Ejemplo del portal La Moncl IA](Ejemplo_MonclIA.png)
 
 # Instrucciones
 
