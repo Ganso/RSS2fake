@@ -11,6 +11,15 @@ generar_noticia("mundomundial", 1, 20, 200)
 
 Genera una noticia para el portal "El Mundo Mundial", pasándole a GPT veinte titulares elegidos al azar desde las fuentes RSS, con 200 caracteres de máximo por cada uno de ellos.
 
+# Portales
+
+Actualmente lo estoy usando para generar varios portales de noticias de broma, que son los mismos que aparecen en el código, con las URL reales que he estado utilizando como fuente.
+
+* [El Mundo Mundial](https://twitter.com/MundoMundial_IA) - periódico generalista
+* [VidaExtraña](https://twitter.com/vidaextrana_IA) - videojuegos
+* [SinConCiencia](https://twitter.com/SinConCienciaIA) - ciencia y negacismo
+* [La Moncl IA](https://twitter.com/laMoncl_IA/) - gobierno de España
+
 # Instrucciones
 
 Este es un programa en Python que requiere ciertas dependencias para su correcto funcionamiento. A continuación, se detallan las instrucciones necesarias para instalar las dependencias requeridas utilizando pip.
@@ -55,7 +64,5 @@ Una vez que se completen todas las instalaciones, puede ejecutar el programa.
 Para utilizar este programa, simplemente ejecute el archivo `.py` que contiene el código. Por ejemplo:
 
 ```
-python mi_programa.py
+python RSS2fake.py
 ```
-
-Se espera que este programa funcione correctamente después de instalar las dependencias requeridas y seguir las instrucciones proporcionadas anteriormente. Si encuentra algún problema, asegúrese de verificar que todas las dependencias estén instaladas correctamente y que esté utilizando la versión correcta de Python.
