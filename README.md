@@ -20,6 +20,13 @@ Actualmente lo estoy usando para generar varios portales de noticias de broma, q
 * [SinConCiencia](https://twitter.com/SinConCienciaIA) - ciencia y negacismo
 * [La Moncl IA](https://twitter.com/laMoncl_IA/) - gobierno de España
 
+# Ejemplos
+
+![Ejemplo del portal El Mundo Mundial](Ejemplo_MundoMundial.jpeg)
+![Ejemplo del portal VidaExtraña](Ejemplo_VidaExtrana.jpeg)
+![Ejemplo del portal SinConCiencia](Ejemplo_SinConCiencia.jpeg)
+![Ejemplo del portal La Moncl IA](Ejemplo_MonclIA.jpeg)
+
 # Instrucciones
 
 Este es un programa en Python que requiere ciertas dependencias para su correcto funcionamiento. A continuación, se detallan las instrucciones necesarias para instalar las dependencias requeridas utilizando pip.
