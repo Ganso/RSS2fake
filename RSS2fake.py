@@ -27,7 +27,8 @@ openai.api_key_path = "../clave_API.txt"
 locale.setlocale(locale.LC_ALL, 'es_ES.UTF-8')
 # Versión de GPT a utilizar. Si tenemos acceso a gpt-4 se puede usar, aunque habría que afinar los prompts para sacarle partido
 gpt_version = "gpt-3.5-turbo"
-
+# Palabras obligatorias que debe incluir cualquier noticia. Por defecto, no se especifica ninguna.
+palabras_obligatorias = ""
 
 
 
@@ -139,6 +140,8 @@ def generar_noticia(abreviatura_servicio, num_noticias, num_noticias_rss, max_ca
 
     #Generar el titular
     prompt_gpt = f"Inventa una nueva noticia divertida que pueda continuar al listado anterior, siendo lo más creativo posible, escribiendo con un toque de humor y parodia. Escribe solo el TITULAR (una línea), obviando el TEXTO o cualquier otra información. {informacion_adicional}"
+    if palabras_obligatorias:
+      prompt_gpt += "La noticia debe incluir estas palabras: " + palabras_obligatorias
     #print(f"PROMPT2 --> {prompt_gpt}")
     mensaje.append( {"role": "user", "content": prompt_gpt} )
     completion = openai.ChatCompletion.create(
@@ -237,27 +240,30 @@ def generar_noticia(abreviatura_servicio, num_noticias, num_noticias_rss, max_ca
 
 # Función auxiliar para la captura de pantalla
 
-async def capturar(abreviatura_servicio,archivo):
-    # Crear una instancia del navegador
-    browser = await launch()
-    # Crear una nueva página
-    page = await browser.newPage()
-    await page.setViewport({'width': 640, 'height': 1280})
-    # Navegar a la página que deseas capturar
-    nombre_archivo =  f'{abreviatura_servicio}/{archivo}'
-    url_completa = f"file://{os.path.abspath(nombre_archivo)}"
-    await page.goto(url_completa)
-    # Tomar una captura de pantalla y guardarla en un archivo
-    await page.screenshot({'path': f'{abreviatura_servicio}/captura_tmp.png'})
-    # Cerrar el navegador
-    await browser.close()
+##async def capturar(abreviatura_servicio,archivo):
+##    # Crear una instancia del navegador
+##    browser = await launch()
+##    # Crear una nueva página
+##    page = await browser.newPage()
+##    await page.setViewport({'width': 640, 'height': 1280})
+##    # Navegar a la página que deseas capturar
+##    nombre_archivo =  f'{abreviatura_servicio}/{archivo}'
+##    url_completa = f"file://{os.path.abspath(nombre_archivo)}"
+##    await page.goto(url_completa)
+##    # Tomar una captura de pantalla y guardarla en un archivo
+##    await page.screenshot({'path': f'{abreviatura_servicio}/captura_tmp.png'})
+##    # Cerrar el navegador
+##    await browser.close()
 
 
 # BUCLE PRINCIPAL
 
 # Genera las noticias (abreviatura, número de noticias a generar, número de noticias a seleccionar de las fuentes RSS, número de caracteres a coger de cada noticia)
 
+# Si especificamos esta variable, todas las noticias tendrán las palabras indicadas
+#palabras_obligatorias = "ZX Spectrum"
+
 generar_noticia("mundomundial", 1, 20, 200)
-#generar_noticia("vidaextrana", 1, 20, 200)
-#generar_noticia("lamonclia", 1, 20, 200)
-#generar_noticia("sinconciencia", 1, 20, 200)
+generar_noticia("vidaextrana", 1, 20, 200)
+generar_noticia("lamonclia", 1, 20, 200)
+generar_noticia("sinconciencia", 1, 20, 200)
