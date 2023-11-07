@@ -26,9 +26,10 @@ openai.api_key_path = "../clave_API.txt"
 # Define las locales en español para que la fecha se genere correctamente
 locale.setlocale(locale.LC_ALL, 'es_ES.UTF-8')
 # Versión de GPT a utilizar. Si tenemos acceso a gpt-4 se puede usar, aunque habría que afinar los prompts para sacarle partido
-gpt_version = "gpt-3.5-turbo"
-# Palabras obligatorias que debe incluir cualquier noticia. Por defecto, no se especifica ninguna.
-palabras_obligatorias = ""
+#gpt_version = "gpt-3.5-turbo"
+gpt_version = "gpt-4"
+# Temática que se debe incluir cualquier noticia. Por defecto, no se especifica ninguna.
+tematica_obligatiorias = ""
 
 
 
@@ -99,7 +100,7 @@ def generar_noticia(abreviatura_servicio, num_noticias, num_noticias_rss, max_ca
     tipo_servicio = 'una web de noticias de videojuegos (hardware gaming, consolas, móviles, Nintendo, Xbox, Playstation, VR, juegos de mesa, cultura popular...)'
     nombre_servicio = 'VidaExtraña'
     cuenta_twitter = 'VidaExtrana_IA'
-    informacion_adicional = "además de noticias de videojuegos como tales, puedes generar noticias sobre hardware para videojuegos (tarjetas gráficas, teclados, ratones, etc.)"
+    informacion_adicional = "además de noticias de videojuegos como tales, puedes generar noticias sobre hardware para videojuegos (tarjetas gráficas, teclados, ratones, etc.) o sobre el mundo del gaming en general"
     
 
   # Añade la fecha actual al tipo de servicio para intentar que nos dé más información de actualidad
@@ -139,9 +140,9 @@ def generar_noticia(abreviatura_servicio, num_noticias, num_noticias_rss, max_ca
   for noticia_generada in range(num_noticias):
 
     #Generar el titular
-    prompt_gpt = f"Inventa una nueva noticia divertida que pueda continuar al listado anterior, siendo lo más creativo posible, escribiendo con un toque de humor y parodia. Escribe solo el TITULAR (una línea), obviando el TEXTO o cualquier otra información. {informacion_adicional}"
-    if palabras_obligatorias:
-      prompt_gpt += "La noticia debe incluir estas palabras: " + palabras_obligatorias
+    prompt_gpt = f"Inventa una nueva noticia irónica y divertida que sirva como continuación del listado anterior. Escribe con un toque de humor ácido y parodia. Escribe solo un titular de una línea. {informacion_adicional}"
+    if tematica_obligatiorias:
+      prompt_gpt += "La noticia debe además tener esta temática concreta: " + tematica_obligatiorias
     #print(f"PROMPT2 --> {prompt_gpt}")
     mensaje.append( {"role": "user", "content": prompt_gpt} )
     completion = openai.ChatCompletion.create(
@@ -152,14 +153,16 @@ def generar_noticia(abreviatura_servicio, num_noticias, num_noticias_rss, max_ca
 
     #Si el titular contiene TEXTO, TITULAR, comillas, o puntos finales, lo elimina.
     print("----NOTICIA GENERADA----")
+    titular_noticia=re.sub("TITULAR DE LA NOTICIA: ", "", titular_noticia)
     titular_noticia=re.sub("TITULAR: ", "", titular_noticia)
+    titular_noticia=re.sub("ENTRADILLA: ", "", titular_noticia)
     titular_noticia=re.sub("TEXTO.*", "", titular_noticia)
     titular_noticia=re.sub("\.$", "", titular_noticia)
     titular_noticia=re.sub('^\"|\"$', "", titular_noticia)
     print(f"TITULAR --> {titular_noticia}")
 
     #Generar la entradilla (le pedimos que la entradilla tenga unos 200 caracteres)
-    mensaje.append( {"role": "user", "content": f"TITULAR DE LA NOTICIA: '{titular_noticia}\n\nENTRADILLA (unos 200 caracteres): "} )
+    mensaje.append( {"role": "user", "content": f"TITULAR DE LA NOTICIA: '{titular_noticia}\n\nTEXTO (unos 200 caracteres): "} )
     completion = openai.ChatCompletion.create(
         model=gpt_version,
         messages=mensaje
@@ -182,9 +185,10 @@ def generar_noticia(abreviatura_servicio, num_noticias, num_noticias_rss, max_ca
     #Generar la imagen
     try:
         response = openai.Image.create(
+          model="dall-e-3",
           prompt=prompt_noticia,
           n=1,
-          size="512x512"
+          size="1024x1024"
         )
         imagen_url = response['data'][0]['url']
         response = requests.get(imagen_url)
@@ -219,9 +223,9 @@ def generar_noticia(abreviatura_servicio, num_noticias, num_noticias_rss, max_ca
 #     Genera automáticamente una captura de pantalla de la web, utilizando un navegador interno
 #     Comentado porque es aún una opción experimental
 #
-##    #Capturar la pantalla
+    #Capturar la pantalla
 ##    asyncio.get_event_loop().run_until_complete(capturar(abreviatura_servicio,f"{nombre_fichero}.html"))
-##    
+    
 ##    #Recortar la captura
 ##    captura_de_pantalla = Image.open(f"{abreviatura_servicio}/captura_tmp.png")
 ##    captura_de_pantalla_gris = captura_de_pantalla.convert('L')
@@ -229,11 +233,11 @@ def generar_noticia(abreviatura_servicio, num_noticias, num_noticias_rss, max_ca
 ##    contornos = captura_de_pantalla_invertida.getbbox()
 ##    captura_de_pantalla_recortada = captura_de_pantalla.crop(contornos)
 ##    captura_de_pantalla_recortada.save(f"{abreviatura_servicio}/{nombre_fichero}_captura.png")
-##
-##    #Borrar el temporal
+
+    #Borrar el temporal
 ##    os.remove(f"{abreviatura_servicio}/captura_tmp.png")
-##    
-##    print(f"CAPTURA_RECORTADA -> {nombre_fichero}_captura.png")
+    
+    print(f"CAPTURA_RECORTADA -> {nombre_fichero}_captura.png")
 
     print("----TERMINADO----")
 
@@ -260,8 +264,8 @@ def generar_noticia(abreviatura_servicio, num_noticias, num_noticias_rss, max_ca
 
 # Genera las noticias (abreviatura, número de noticias a generar, número de noticias a seleccionar de las fuentes RSS, número de caracteres a coger de cada noticia)
 
-# Si especificamos esta variable, todas las noticias tendrán las palabras indicadas
-#palabras_obligatorias = "ZX Spectrum"
+# Si especificamos esta variable, todas las noticias tendrán la temática indicada
+#tematica_obligatiorias = "Star Wars"
 
 generar_noticia("mundomundial", 1, 20, 200)
 generar_noticia("vidaextrana", 1, 20, 200)
