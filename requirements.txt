@@ -1,0 +1,7 @@
+feedparser
+openai
+requests
+beautifulsoup4
+dominate
+Pillow
+pyppeteer

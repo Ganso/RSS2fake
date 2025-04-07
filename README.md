@@ -29,21 +29,7 @@ Actualmente lo estoy usando para generar varios portales de noticias de broma, q
 
 # Instrucciones
 
-Este es un programa en Python que requiere ciertas dependencias para su correcto funcionamiento. A continuación, se detallan las instrucciones necesarias para instalar las dependencias requeridas utilizando pip.
-
-## Dependencias
-
-Este programa requiere las siguientes dependencias:
-
-* feedparser
-* openai
-* requests
-* datetime
-* asyncio
-* beautifulsoup4
-* dominate
-* Pillow
-* pyppeteer
+Este es un programa en Python que requiere ciertas dependencias para su correcto funcionamiento. A continuación, se detallan las instrucciones necesarias para instalar las dependencias requeridas.
 
 ## Instalación
 
@@ -57,13 +43,13 @@ Si no tiene pip instalado, siga las instrucciones en la [documentación oficial 
 
 Abra una terminal y vaya al directorio raíz del proyecto.
 
-Instale las dependencias necesarias utilizando el siguiente comando:
-
+Para instalar las dependencias, utilice el siguiente comando:
 
 ```
-pip install feedparser openai requests datetime asyncio beautifulsoup4 dominate Pillow pyppeteer
+pip install -r requirements.txt
 ```
 
+Este comando instalará todas las dependencias listadas en el archivo `requirements.txt`.
 Una vez que se completen todas las instalaciones, puede ejecutar el programa.
 
 ## Uso
