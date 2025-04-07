@@ -42,6 +42,9 @@ tematica_obligatiorias = ""
 # Además, el coste de la petición será más alto cuantos más tokens utilicemos.
 
 def generar_noticia(abreviatura_servicio, num_noticias, num_noticias_rss, max_caracteres_noticia_rss):
+  with open("../clave_API.txt", "r") as f:
+    api_key = f.read().strip()
+  client = openai.OpenAI(api_key=api_key)
     
   # Definir la URL y el tipo del feed RSS
   # - urls : listado de URLs a consultar (se leen completas, y luego se barajan y se eligen las num_noticias_rss primeras)
@@ -145,7 +148,7 @@ def generar_noticia(abreviatura_servicio, num_noticias, num_noticias_rss, max_ca
       prompt_gpt += "La noticia debe además tener esta temática concreta: " + tematica_obligatiorias
     #print(f"PROMPT2 --> {prompt_gpt}")
     mensaje.append( {"role": "user", "content": prompt_gpt} )
-    completion = openai.ChatCompletion.create(
+    completion = client.chat.completions.create(
         model=gpt_version,
         messages=mensaje
     )
@@ -157,13 +160,13 @@ def generar_noticia(abreviatura_servicio, num_noticias, num_noticias_rss, max_ca
     titular_noticia=re.sub("TITULAR: ", "", titular_noticia)
     titular_noticia=re.sub("ENTRADILLA: ", "", titular_noticia)
     titular_noticia=re.sub("TEXTO.*", "", titular_noticia)
-    titular_noticia=re.sub("\.$", "", titular_noticia)
+    titular_noticia=re.sub(r"\.$", "", titular_noticia)
     titular_noticia=re.sub('^\"|\"$', "", titular_noticia)
     print(f"TITULAR --> {titular_noticia}")
 
     #Generar la entradilla (le pedimos que la entradilla tenga unos 200 caracteres)
     mensaje.append( {"role": "user", "content": f"TITULAR DE LA NOTICIA: '{titular_noticia}\n\nTEXTO (unos 200 caracteres): "} )
-    completion = openai.ChatCompletion.create(
+    completion = client.chat.completions.create(
         model=gpt_version,
         messages=mensaje
     )
@@ -172,7 +175,7 @@ def generar_noticia(abreviatura_servicio, num_noticias, num_noticias_rss, max_ca
 
     #Generar el prompt para Dall-E 2
     mensaje.append( {"role": "user", "content": f"TITULAR DE LA NOTICIA: '{titular_noticia}\n\nPROMPT PARA ENVIARLE A DALL-E 2 (texto completamente en inglés, compuesto por tokens de una o dos palabras separados por comas, añadir como token que el estilo sea fotográfico detallado y realista, evitar palabras conflictivas o malsonantes). No hace falta generar la imagen, solo el prompt): "} )
-    completion = openai.ChatCompletion.create(
+    completion = client.chat.completions.create(
         model=gpt_version,
         messages=mensaje
     )
@@ -184,13 +187,13 @@ def generar_noticia(abreviatura_servicio, num_noticias, num_noticias_rss, max_ca
 
     #Generar la imagen
     try:
-        response = openai.Image.create(
+        response = client.images.generate(
           model="dall-e-3",
           prompt=prompt_noticia,
           n=1,
           size="1024x1024"
         )
-        imagen_url = response['data'][0]['url']
+        imagen_url = response.data[0].url
         response = requests.get(imagen_url)
         imagen = Image.open(BytesIO(response.content))
         imagen.save(f"{ruta}/{nombre_fichero}.png")
